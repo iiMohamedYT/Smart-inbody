@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام Inbody المحترف - تحليل تكوين الجسم</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+            --protein: #9b59b6;
+            --carbs: #f1c40f;
+            --fat: #e67e22;
+            --creatine: #1abc9c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 20px;
+        }
+        
+        .input-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .input-section h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+        
+        .activity-level {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .activity-btn {
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .activity-btn.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        .activity-btn:hover {
+            border-color: var(--secondary);
+        }
+        
+        button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.3s;
+            width: 100%;
+        }
+        
+        button:hover {
+            background: var(--primary);
+        }
+        
+        .results-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .results-header h2 {
+            color: var(--primary);
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .result-card {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .result-card h3 {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .result-card .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .result-card .unit {
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        .progress-container {
+            margin-top: 5px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+        
+        .normal { background: var(--success); }
+        .warning { background: var(--warning); }
+        .danger { background: var(--danger); }
+        
+        .target-value {
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .target-warning { color: var(--warning); }
+        .target-danger { color: var(--danger); }
+        
+        .nutrition-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        
+        .nutrition-section h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .nutrition-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .nutrition-card {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .nutrition-card h3 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .nutrition-card .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .nutrition-card .unit {
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        .protein { color: var(--protein); }
+        .carbs { color: var(--carbs); }
+        .fat { color: var(--fat); }
+        .creatine { color: var(--creatine); }
+        
+        .calories-card {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .calories-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .calories-card .value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .calories-card .unit {
+            font-size: 1rem;
+        }
+        
+        .creatine-details {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-right: 4px solid var(--creatine);
+        }
+        
+        .creatine-details h4 {
+            color: var(--creatine);
+            margin-bottom: 10px;
+        }
+        
+        .creatine-details p {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .charts {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .chart-container {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .chart-container h3 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .chart {
+            height: 150px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+        }
+        
+        .chart-bar {
+            width: 40px;
+            background: var(--secondary);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+        }
+        
+        .chart-bar span {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+        }
+        
+        .summary {
+            margin-top: 25px;
+            padding: 15px;
+            background: var(--light);
+            border-radius: 8px;
+        }
+        
+        .summary h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .summary p {
+            line-height: 1.6;
+        }
+        
+        .color-guide {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        
+        .color-guide h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .color-items {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        .color-normal { background: var(--success); }
+        .color-warning { background: var(--warning); }
+        .color-danger { background: var(--danger); }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .recommendations {
+            margin-top: 20px;
+            padding: 15px;
+            background: var(--light);
+            border-radius: 8px;
+        }
+        
+        .recommendations h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .recommendations ul {
+            padding-right: 20px;
+        }
+        
+        .recommendations li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .detail-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .detail-table th, .detail-table td {
+            padding: 10px;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .detail-table th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .color-items, .nutrition-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .activity-level {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .results-grid, .charts {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-weight"></i>
+                <h1>نظام Inbody المحترف - تحليل تكوين الجسم</h1>
+            </div>
+            <div class="header-info">
+                <p>أدق قياسات تحليل الجسم بتقنية محاكاة الذكاء الاصطناعي</p>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="input-section">
+                <h2><i class="fas fa-user-circle"></i> بيانات المستخدم</h2>
+                
+                <div class="form-group">
+                    <label for="name">الاسم الكامل</label>
+                    <input type="text" id="name" placeholder="أدخل اسمك الكامل">
+                </div>
+                
+                <div class="form-group">
+                    <label for="gender">الجنس</label>
+                    <select id="gender">
+                        <option value="male">ذكر</option>
+                        <option value="female">أنثى</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="age">العمر (سنوات)</label>
+                    <input type="number" id="age" placeholder="أدخل عمرك">
+                </div>
+                
+                <div class="form-group">
+                    <label for="height">الطول (سم)</label>
+                    <input type="number" id="height" placeholder="أدخل طولك بالسنتيمتر">
+                </div>
+                
+                <div class="form-group">
+                    <label for="weight">الوزن (كجم)</label>
+                    <input type="number" id="weight" placeholder="أدخل وزنك بالكيلوجرام">
+                </div>
+                
+                <div class="form-group">
+                    <label for="experience">مستوى الخبرة الرياضية</label>
+                    <select id="experience">
+                        <option value="beginner">مبتدئ (أقل من 6 أشهر)</option>
+                        <option value="intermediate">متوسط (6 أشهر - سنتين)</option>
+                        <option value="advanced">متقدم (أكثر من سنتين)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>مستوى النشاط البدني</label>
+                    <div class="activity-level">
+                        <div class="activity-btn" data-level="1.2">قليل النشاط</div>
+                        <div class="activity-btn" data-level="1.375">خفيف النشاط</div>
+                        <div class="activity-btn active" data-level="1.55">متوسط النشاط</div>
+                        <div class="activity-btn" data-level="1.725">نشيط جداً</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="goal">الهدف</label>
+                    <select id="goal">
+                        <option value="loss">خسارة الوزن</option>
+                        <option value="maintain">الحفاظ على الوزن</option>
+                        <option value="gain">زيادة الوزن</option>
+                    </select>
+                </div>
+                
+                <button id="analyze-btn"><i class="fas fa-chart-line"></i> تحليل تكوين الجسم</button>
+            </div>
+            
+            <div class="results-section">
+                <div class="results-header">
+                    <h2><i class="fas fa-chart-pie"></i> نتائج التحليل</h2>
+                    <div class="date" id="result-date">--/--/----</div>
+                </div>
+                
+                <div class="results-grid">
+                    <div class="result-card">
+                        <h3>وزن الجسم (كجم)</h3>
+                        <div class="value" id="weight-result">--</div>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill normal" id="weight-bar"></div>
+                            </div>
+                            <div class="target-value" id="weight-target"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3>مؤشر كتلة الجسم (BMI)</h3>
+                        <div class="value" id="bmi-result">--</div>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill normal" id="bmi-bar"></div>
+                            </div>
+                            <div class="target-value" id="bmi-target"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3>نسبة الدهون في الجسم (%)</h3>
+                        <div class="value" id="fat-result">--</div>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill normal" id="fat-bar"></div>
+                            </div>
+                            <div class="target-value" id="fat-target"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3>الكتلة العضلية (كجم)</h3>
+                        <div class="value" id="muscle-result">--</div>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill normal" id="muscle-bar"></div>
+                            </div>
+                            <div class="target-value" id="muscle-target"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3>ماء الجسم (لتر)</h3>
+                        <div class="value" id="water-result">--</div>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill normal" id="water-bar"></div>
+                            </div>
+                            <div class="target-value" id="water-target"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3>معدل الأيض الأساسي (سعرة)</h3>
+                        <div class="value" id="bmr-result">--</div>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill normal" id="bmr-bar"></div>
+                            </div>
+                            <div class="target-value" id="bmr-target"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="nutrition-section">
+                    <h2><i class="fas fa-utensils"></i> الاحتياجات الغذائية اليومية</h2>
+                    <div class="nutrition-cards">
+                        <div class="calories-card">
+                            <h3>إجمالي السعرات الحرارية اليومية</h3>
+                            <div class="value" id="calories-result">--</div>
+                            <div class="unit">سعرة حرارية/يوم</div>
+                        </div>
+                        
+                        <div class="nutrition-card">
+                            <h3><i class="fas fa-dumbbell"></i> البروتين</h3>
+                            <div class="value protein" id="protein-result">--</div>
+                            <div class="unit">غرام/يوم</div>
+                        </div>
+                        
+                        <div class="nutrition-card">
+                            <h3><i class="fas fa-bread-slice"></i> الكربوهيدرات</h3>
+                            <div class="value carbs" id="carbs-result">--</div>
+                            <div class="unit">غرام/يوم</div>
+                        </div>
+                        
+                        <div class="nutrition-card">
+                            <h3><i class="fas fa-oil-can"></i> الدهون</h3>
+                            <div class="value fat" id="fat-grams-result">--</div>
+                            <div class="unit">غرام/يوم</div>
+                        </div>
+                        
+                        <div class="nutrition-card">
+                            <h3><i class="fas fa-pills"></i> الكرياتين</h3>
+                            <div class="value creatine" id="creatine-result">--</div>
+                            <div class="unit">غرام/يوم</div>
+                        </div>
+                    </div>
+                    
+                    <div class="creatine-details">
+                        <h4><i class="fas fa-info-circle"></i> تفاصيل جرعة الكرياتين</h4>
+                        <p id="loading-phase">مرحلة التحميل (أول أسبوع): -- غرام/يوم</p>
+                        <p id="maintenance-phase">الجرعة اليومية الاعتيادية: -- غرام/يوم</p>
+                        <p id="creatine-type">النوع الموصى به: كرياتين مونوهيدرات</p>
+                    </div>
+                </div>
+                
+                <div class="charts">
+                    <div class="chart-container">
+                        <h3>توزيع مكونات الجسم</h3>
+                        <div class="chart" id="body-composition-chart">
+                            <div class="chart-bar" style="height: 40%;"><span>دهون</span></div>
+                            <div class="chart-bar" style="height: 60%;"><span>عضلات</span></div>
+                            <div class="chart-bar" style="height: 20%;"><span>عظام</span></div>
+                            <div class="chart-bar" style="height: 15%;"><span>أخرى</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>مقارنة مع المعدلات الطبيعية</h3>
+                        <div class="chart" id="comparison-chart">
+                            <div class="chart-bar" style="height: 70%; background: #3498db;"><span>أنت</span></div>
+                            <div class="chart-bar" style="height: 85%; background: #2ecc71;"><span>مثالي</span></div>
+                            <div class="chart-bar" style="height: 60%; background: #e74c3c;"><span>المعدل</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="summary">
+                    <h3><i class="fas fa-file-medical-alt"></i> التقييم والنتائج</h3>
+                    <p id="summary-text">سيظهر هنا التقييم التفصيلي لحالة جسمك بعد إدخال البيانات وإجراء التحليل.</p>
+                    
+                    <table class="detail-table">
+                        <thead>
+                            <tr>
+                                <th>المعيار</th>
+                                <th>القيمة</th>
+                                <th>الحالة</th>
+                                <th>النطاق المثالي</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detail-table-body">
+                            <tr>
+                                <td colspan="4" style="text-align: center;">سيتم عرض التفاصيل بعد التحليل</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="recommendations">
+                    <h3><i class="fas fa-clipboard-list"></i> التوصيات والإرشادات</h3>
+                    <ul id="recommendations-list">
+                        <li>سيتم عرض التوصيات المخصصة بعد إدخال البيانات</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="color-guide">
+            <h2><i class="fas fa-palette"></i> دليل الألوان والتفسير</h2>
+            <div class="color-items">
+                <div class="color-item">
+                    <div class="color-box color-normal"></div>
+                    <div class="color-info">
+                        <h4>أخضر (طبيعي)</h4>
+                        <p>القيمة ضمن النطاق الصحي المثالي</p>
+                    </div>
+                </div>
+                
+                <div class="color-item">
+                    <div class="color-box color-warning"></div>
+                    <div class="color-info">
+                        <h4>برتقالي (تحذير)</h4>
+                        <p>القيمة خارج النطاق المثالي ولكن لا تزال مقبولة</p>
+                    </div>
+                </div>
+                
+                <div class="color-item">
+                    <div class="color-box color-danger"></div>
+                    <div class="color-info">
+                        <h4>أحمر (خطر)</h4>
+                        <p>القيمة خارج النطاق المقبول وتتطلب اهتمامًا عاجلاً</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 نظام Inbody المحترف - هذا النموذج لأغراض演示ية ولا يغني عن الاستشارة الطبية</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // تحديث التاريخ
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('result-date').textContent = now.toLocaleDateString('ar-EG', options);
+            
+            // إعداد أزرار مستوى النشاط
+            const activityButtons = document.querySelectorAll('.activity-btn');
+            activityButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    activityButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // زر التحليل
+            document.getElementById('analyze-btn').addEventListener('click', function() {
+                analyzeBodyComposition();
+            });
+            
+            // حساب احتياج الكرياتين
+            function calculateCreatine(weight, experience) {
+                let loadingDose, maintenanceDose;
+                
+                // حساب الجرعة بناءً على مستوى الخبرة الرياضية
+                if (experience === 'beginner') {
+                    loadingDose = 0.2 * weight; // 0.2 غرام لكل كغم في مرحلة التحميل
+                    maintenanceDose = 0.02 * weight; // 0.02 غرام لكل كغم للجرعة اليومية
+                } else if (experience === 'intermediate') {
+                    loadingDose = 0.25 * weight; // 0.25 غرام لكل كغم في مرحلة التحميل
+                    maintenanceDose = 0.025 * weight; // 0.025 غرام لكل كغم للجرعة اليومية
+                } else { // advanced
+                    loadingDose = 0.3 * weight; // 0.3 غرام لكل كغم في مرحلة التحميل
+                    maintenanceDose = 0.03 * weight; // 0.03 غرام لكل كغم للجرعة اليومية
+                }
+                
+                // تحديد الحد الأدنى والحد الأقصى للجرعات
+                loadingDose = Math.min(Math.max(loadingDose, 15), 25); // بين 15 و 25 غرام
+                maintenanceDose = Math.min(Math.max(maintenanceDose, 3), 10); // بين 3 و 10 غرام
+                
+                return {
+                    loading: Math.round(loadingDose),
+                    maintenance: Math.round(maintenanceDose)
+                };
+            }
+            
+            // تحليل تكوين الجسم
+            function analyzeBodyComposition() {
+                const name = document.getElementById('name').value || "المستخدم";
+                const height = parseFloat(document.getElementById('height').value);
+                const weight = parseFloat(document.getElementById('weight').value);
+                const age = parseInt(document.getElementById('age').value);
+                const gender = document.getElementById('gender').value;
+                const goal = document.getElementById('goal').value;
+                const experience = document.getElementById('experience').value;
+                const activityLevel = parseFloat(document.querySelector('.activity-btn.active').dataset.level);
+                
+                if (!height || !weight || !age) {
+                    alert('يرجى إدخال جميع البيانات المطلوبة');
+                    return;
+                }
+                
+                // حساب مؤشر كتلة الجسم (BMI)
+                const heightInMeter = height / 100;
+                const bmi = weight / (heightInMeter * heightInMeter);
+                
+                // حساب نسبة الدهون
+                let bodyFatPercentage;
+                if (gender === 'male') {
+                    bodyFatPercentage = (1.20 * bmi) + (0.23 * age) - 16.2;
+                } else {
+                    bodyFatPercentage = (1.20 * bmi) + (0.23 * age) - 5.4;
+                }
+                
+                // حساب الكتلة العضلية (تقريبي)
+                const muscleMass = weight * (1 - bodyFatPercentage/100);
+                
+                // حساب ماء الجسم (تقريبي)
+                const bodyWater = weight * 0.6;
+                
+                // حساب معدل الأيض الأساسي (BMR)
+                let bmr;
+                if (gender === 'male') {
+                    bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+                } else {
+                    bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+                }
+                
+                // حساب إجمالي السعرات الحرارية اليومية (TDEE)
+                let tdee = bmr * activityLevel;
+                
+                // تعديل السعرات حسب الهدف
+                if (goal === 'loss') {
+                    tdee -= 500; // خفض 500 سعرة لخسارة الوزن
+                } else if (goal === 'gain') {
+                    tdee += 500; // زيادة 500 سعرة لزيادة الوزن
+                }
+                
+                // حساب الاحتياجات الغذائية
+                const proteinGrams = Math.round(muscleMass * 2.2); // 2.2 غرام بروتين لكل كيلو من الكتلة العضلية
+                const proteinCalories = proteinGrams * 4;
+                
+                const fatGrams = Math.round((tdee * 0.25) / 9); // 25% من السعرات من الدهون
+                const fatCalories = fatGrams * 9;
+                
+                const remainingCalories = tdee - proteinCalories - fatCalories;
+                const carbsGrams = Math.round(remainingCalories / 4);
+                
+                // حساب الكرياتين
+                const creatineNeeds = calculateCreatine(weight, experience);
+                
+                // تحديث النتائج
+                document.getElementById('weight-result').textContent = weight.toFixed(1);
+                document.getElementById('bmi-result').textContent = bmi.toFixed(1);
+                document.getElementById('fat-result').textContent = bodyFatPercentage.toFixed(1);
+                document.getElementById('muscle-result').textContent = muscleMass.toFixed(1);
+                document.getElementById('water-result').textContent = bodyWater.toFixed(1);
+                document.getElementById('bmr-result').textContent = bmr.toFixed(0);
+                
+                // تحديث القيم الغذائية
+                document.getElementById('calories-result').textContent = Math.round(tdee);
+                document.getElementById('protein-result').textContent = proteinGrams;
+                document.getElementById('carbs-result').textContent = carbsGrams;
+                document.getElementById('fat-grams-result').textContent = fatGrams;
+                document.getElementById('creatine-result').textContent = creatineNeeds.maintenance;
+                
+                // تحديث تفاصيل الكرياتين
+                document.getElementById('loading-phase').textContent = `مرحلة التحميل (أول أسبوع): ${creatineNeeds.loading} غرام/يوم`;
+                document.getElementById('maintenance-phase').textContent = `الجرعة اليومية الاعتيادية: ${creatineNeeds.maintenance} غرام/يوم`;
+                
+                // تحديد النطاقات المثالية
+                const weightMin = 50;
+                const weightMax = 100;
+                const bmiMin = 18.5;
+                const bmiMax = 24.9;
+                const fatMin = gender === 'male' ? 8 : 21;
+                const fatMax = gender === 'male' ? 19 : 32;
+                const muscleMin = gender === 'male' ? weight * 0.4 : weight * 0.3;
+                const muscleMax = gender === 'male' ? weight * 0.5 : weight * 0.4;
+                const waterMin = weight * 0.5;
+                const waterMax = weight * 0.65;
+                const bmrMin = gender === 'male' ? 1600 : 1400;
+                const bmrMax = gender === 'male' ? 2000 : 1800;
+                
+                // تحديث أشرطة التقدم
+                const weightStatus = updateProgressBar('weight-bar', 'weight-target', weight, weightMin, weightMax, "كجم");
+                const bmiStatus = updateProgressBar('bmi-bar', 'bmi-target', bmi, bmiMin, bmiMax, "");
+                const fatStatus = updateProgressBar('fat-bar', 'fat-target', bodyFatPercentage, fatMin, fatMax, "%");
+                const muscleStatus = updateProgressBar('muscle-bar', 'muscle-target', muscleMass, muscleMin, muscleMax, "كجم");
+                const waterStatus = updateProgressBar('water-bar', 'water-target', bodyWater, waterMin, waterMax, "لتر");
+                const bmrStatus = updateProgressBar('bmr-bar', 'bmr-target', bmr, bmrMin, bmrMax, "سعرة");
+                
+                // تحديث التقييم
+                updateSummary(name, bmi, bodyFatPercentage, muscleMass, bodyWater, bmr, gender);
+                
+                // تحديث الجدول التفصيلي
+                updateDetailTable(weight, weightStatus, "كجم", "50-100", bmi, bmiStatus, "", "18.5-24.9", 
+                    bodyFatPercentage, fatStatus, "%", gender === 'male' ? "8-19" : "21-32", 
+                    muscleMass, muscleStatus, "كجم", gender === 'male' ? "40-50% من الوزن" : "30-40% من الوزن",
+                    bodyWater, waterStatus, "لتر", "50-65% من الوزن",
+                    bmr, bmrStatus, "سعرة/يوم", gender === 'male' ? "1600-2000" : "1400-1800");
+                
+                // تحديث التوصيات
+                updateRecommendations(bmi, bodyFatPercentage, muscleMass, gender, goal, tdee, proteinGrams, carbsGrams, fatGrams, creatineNeeds);
+            }
+            
+            function updateProgressBar(barId, targetId, value, minNormal, maxNormal, unit) {
+                const bar = document.getElementById(barId);
+                const targetElement = document.getElementById(targetId);
+                let status = "normal";
+                
+                // إخفاء النص الهدف أولاً
+                targetElement.style.display = "none";
+                targetElement.className = "target-value";
+                
+                // حساب النسبة المئوية للتقدم
+                let percentage;
+                if (value < minNormal) {
+                    percentage = (value / minNormal) * 33;
+                    status = "warning";
+                    targetElement.textContent = `النسبة المثالية: ${minNormal.toFixed(1)} - ${maxNormal.toFixed(1)} ${unit}`;
+                    targetElement.classList.add("target-warning");
+                    targetElement.style.display = "block";
+                } else if (value > maxNormal) {
+                    percentage = 66 + ((value - maxNormal) / (maxNormal * 2)) * 34;
+                    status = "danger";
+                    targetElement.textContent = `النسبة المثالية: ${minNormal.toFixed(1)} - ${maxNormal.toFixed(1)} ${unit}`;
+                    targetElement.classList.add("target-danger");
+                    targetElement.style.display = "block";
+                } else {
+                    percentage = 33 + ((value - minNormal) / (maxNormal - minNormal)) * 33;
+                    status = "normal";
+                }
+                
+                percentage = Math.min(100, Math.max(0, percentage));
+                
+                bar.style.width = `${percentage}%`;
+                
+                if (status === "warning") {
+                    bar.className = 'progress-fill warning';
+                } else if (status === "danger") {
+                    bar.className = 'progress-fill danger';
+                } else {
+                    bar.className = 'progress-fill normal';
+                }
+                
+                return status;
+            }
+            
+            function updateSummary(name, bmi, bodyFat, muscleMass, bodyWater, bmr, gender) {
+                let summaryText = `عزيزي/عزيزتي ${name}،<br>`;
+                
+                // تقييم BMI
+                if (bmi < 18.5) {
+                    summaryText += `مؤشر كتلة الجسم لديك (${bmi.toFixed(1)}) أقل من الطبيعي. يشير هذا إلى نقص في الوزن وقد يكون مؤشراً على سوء التغذية أو وجود مشاكل صحية أخرى. النسبة المثالية لمؤشر كتلة الجسم هي بين 18.5 و 24.9.`;
+                } else if (bmi >= 18.5 && bmi <= 24.9) {
+                    summaryText += `مؤشر كتلة الجسم لديك (${bmi.toFixed(1)}) في المعدل الطبيعي والصحي. هذا مؤشر جيد على توازن تكوين جسمك.`;
+                } else if (bmi >= 25 && bmi <= 29.9) {
+                    summaryText += `مؤشر كتلة الجسم لديك (${bmi.toFixed(1)}) أعلى من الطبيعي. أنت في نطاق الوزن الزائد مما يزيد من خطر الإصابة بمشاكل صحية. النسبة المثالية لمؤشر كتلة الجسم هي بين 18.5 و 24.9.`;
+                } else {
+                    summaryText += `مؤشر كتلة الجسم لديك (${bmi.toFixed(1)}) في نطاق السمنة. هذا يزيد بشكل كبير من خطر الإصابة بأمراض القلب والسكري وغيرها من المشاكل الصحية. النسبة المثالية لمؤشر كتلة الجسم هي بين 18.5 و 24.9.`;
+                }
+                
+                summaryText += "<br><br>";
+                
+                // تقييم نسبة الدهون
+                if (gender === 'male') {
+                    if (bodyFat < 8) {
+                        summaryText += `نسبة الدهون في جسمك (${bodyFat.toFixed(1)}%) منخفضة جداً. هذه النسبة قد تؤثر على الوظائف الحيوية للجسم وتضعف الجهاز المناعي. النسبة المثالية للرجال هي بين 8% و 19%.`;
+                    } else if (bodyFat >= 8 && bodyFat <= 19) {
+                        summaryText += `نسبة الدهون في جسمك (${bodyFat.toFixed(1)}%) في المعدل الطبيعي والصحي للرجال. هذا يساعد في الحفاظ على الصحة العامة والهرمونات.`;
+                    } else {
+                        summaryText += `نسبة الدهون في جسمك (${bodyFat.toFixed(1)}%) أعلى من المعدل الطبيعي للرجال. زيادة الدهون تزيد من خطر الأمراض المزمنة. النسبة المثالية للرجال هي بين 8% و 19%.`;
+                    }
+                } else {
+                    if (bodyFat < 21) {
+                        summaryText += `نسبة الدهون في جسمك (${bodyFat.toFixed(1)}%) منخفضة جداً. هذه النسبة قد تؤثر على الدورة الشهرية والخصوبة لدى النساء. النسبة المثالية للنساء هي بين 21% و 32%.`;
+                    } else if (bodyFat >= 21 && bodyFat <= 32) {
+                        summaryText += `نسبة الدهون في جسمك (${bodyFat.toFixed(1)}%) في المعدل الطبيعي والصحي للنساء. هذا المستوى ضروري للوظائف الهرمونية الطبيعية.`;
+                    } else {
+                        summaryText += `نسبة الدهون في جسمك (${bodyFat.toFixed(1)}%) أعلى من المعدل الطبيعي للنساء. زيادة الدهون تزيد من خطر الأمراض المزمنة. النسبة المثالية للنساء هي بين 21% و 32%.`;
+                    }
+                }
+                
+                summaryText += "<br><br>";
+                
+                // تقييم الكتلة العضلية
+                const musclePercentage = (muscleMass / weight) * 100;
+                if (gender === 'male') {
+                    if (musclePercentage < 40) {
+                        summaryText += `نسبة الكتلة العضلية لديك (${musclePercentage.toFixed(1)}%) أقل من المعدل الموصى به للرجال. قد تحتاج إلى زيادة النشاط البدني وكمية البروتين. النسبة المثالية للرجال هي بين 40% و 50% من وزن الجسم.`;
+                    } else if (musclePercentage >= 40 && musclePercentage <= 50) {
+                        summaryText += `نسبة الكتلة العضلية لديك (${musclePercentage.toFixed(1)}%) في المعدل الصحي للرجال. هذا يساعد في الحفاظ على معدل الأيض وصحة العظام.`;
+                    } else {
+                        summaryText += `نسبة الكتلة العضلية لديك (${musclePercentage.toFixed(1)}%) أعلى من المعدل الطبيعي. هذا قد يكون نتيجة تمارين القوة المنتظمة وهو إيجابي طالما أن نسبة الدهون ضمن المعدل الصحي.`;
+                    }
+                } else {
+                    if (musclePercentage < 30) {
+                        summaryText += `نسبة الكتلة العضلية لديك (${musclePercentage.toFixed(1)}%) أقل من المعدل الموصى به للنساء. قد تحتاج إلى زيادة النشاط البدني وكمية البروتين. النسبة المثالية للنساء هي بين 30% و 40% من وزن الجسم.`;
+                    } else if (musclePercentage >= 30 && musclePercentage <= 40) {
+                        summaryText += `نسبة الكتلة العضلية لديك (${musclePercentage.toFixed(1)}%) في المعدل الصحي للنساء. هذا يساعد في الحفاظ على معدل الأيض وصحة العظام.`;
+                    } else {
+                        summaryText += `نسبة الكتلة العضلية لديك (${musclePercentage.toFixed(1)}%) أعلى من المعدل الطبيعي. هذا قد يكون نتيجة تمارين القوة المنتظمة وهو إيجابي طالما أن نسبة الدهون ضمن المعدل الصحي.`;
+                    }
+                }
+                
+                document.getElementById('summary-text').innerHTML = summaryText;
+            }
+            
+            function updateDetailTable(weight, weightStatus, weightUnit, weightRange, 
+                                      bmi, bmiStatus, bmiUnit, bmiRange,
+                                      fat, fatStatus, fatUnit, fatRange,
+                                      muscle, muscleStatus, muscleUnit, muscleRange,
+                                      water, waterStatus, waterUnit, waterRange,
+                                      bmr, bmrStatus, bmrUnit, bmrRange) {
+                const tableBody = document.getElementById('detail-table-body');
+                
+                tableBody.innerHTML = `
+                    <tr>
+                        <td>وزن الجسم</td>
+                        <td>${weight.toFixed(1)} ${weightUnit}</td>
+                        <td><span class="color-${weightStatus}">${getStatusText(weightStatus)}</span></td>
+                        <td>${weightRange}</td>
+                    </tr>
+                    <tr>
+                        <td>مؤشر كتلة الجسم (BMI)</td>
+                        <td>${bmi.toFixed(1)} ${bmiUnit}</td>
+                        <td><span class="color-${bmiStatus}">${getStatusText(bmiStatus)}</span></td>
+                        <td>${bmiRange}</td>
+                    </tr>
+                    <tr>
+                        <td>نسبة الدهون</td>
+                        <td>${fat.toFixed(1)} ${fatUnit}</td>
+                        <td><span class="color-${fatStatus}">${getStatusText(fatStatus)}</span></td>
+                        <td>${fatRange}</td>
+                    </tr>
+                    <tr>
+                        <td>الكتلة العضلية</td>
+                        <td>${muscle.toFixed(1)} ${muscleUnit}</td>
+                        <td><span class="color-${muscleStatus}">${getStatusText(muscleStatus)}</span></td>
+                        <td>${muscleRange}</td>
+                    </tr>
+                    <tr>
+                        <td>ماء الجسم</td>
+                        <td>${water.toFixed(1)} ${waterUnit}</td>
+                        <td><span class="color-${waterStatus}">${getStatusText(waterStatus)}</span></td>
+                        <td>${waterRange}</td>
+                    </tr>
+                    <tr>
+                        <td>معدل الأيض الأساسي (BMR)</td>
+                        <td>${bmr.toFixed(0)} ${bmrUnit}</td>
+                        <td><span class="color-${bmrStatus}">${getStatusText(bmrStatus)}</span></td>
+                        <td>${bmrRange}</td>
+                    </tr>
+                `;
+            }
+            
+            function getStatusText(status) {
+                if (status === "normal") return "طبيعي";
+                if (status === "warning") return "تحذير";
+                return "خطر";
+            }
+            
+            function updateRecommendations(bmi, bodyFat, muscleMass, gender, goal, tdee, proteinGrams, carbsGrams, fatGrams, creatineNeeds) {
+                const recommendationsList = document.getElementById('recommendations-list');
+                let recommendations = [];
+                
+                // توصيات بناءً على الهدف
+                if (goal === 'loss') {
+                    recommendations.push(`لخسارة الوزن، يجب استهلاك حوالي ${Math.round(tdee)} سعرة حرارية يومياً`);
+                    recommendations.push(`تناول ${proteinGrams} غرام من البروتين يومياً للحفاظ على الكتلة العضلية أثناء خسارة الوزن`);
+                } else if (goal === 'gain') {
+                    recommendations.push(`لزيادة الوزن، يجب استهلاك حوالي ${Math.round(tdee)} سعرة حرارية يومياً`);
+                    recommendations.push(`تناول ${proteinGrams} غرام من البروتين يومياً لدعم بناء الكتلة العضلية`);
+                } else {
+                    recommendations.push(`للحفاظ على الوزن، يجب استهلاك حوالي ${Math.round(tdee)} سعرة حرارية يومياً`);
+                }
+                
+                // توصيات الكرياتين
+                recommendations.push(`جرعة الكرياتين: ${creatineNeeds.maintenance} غرام يومياً (${creatineNeeds.loading} غرام في الأسبوع الأول)`);
+                recommendations.push("خذ الكرياتين مع وجبة تحتوي على الكربوهيدرات لتحسين الامتصاص");
+                recommendations.push("اشرب كمية كافية من الماء (3-4 لتر يومياً) عند تناول الكرياتين");
+                
+                // توصيات عامة للتغذية
+                recommendations.push(`توزيع الكربوهيدرات: ${carbsGrams} غرام يومياً (حوالي ${Math.round(carbsGrams/4)} غرام لكل وجبة)`);
+                recommendations.push(`توزيع الدهون: ${fatGrams} غرام يومياً (دهون صحية مثل الأفوكادو، المكسرات، زيت الزيتون)`);
+                
+                // توصيات بناءً على BMI
+                if (bmi < 18.5) {
+                    recommendations.push("زيادة السعرات الحرارية اليومية بشكل تدريجي مع التركيز على الأغذية الغنية بالعناصر الغذائية");
+                    recommendations.push("ممارسة تمارين القوة لبناء الكتلة العضلية بدلاً من تمارين الكارديو المكثفة");
+                } else if (bmi >= 25) {
+                    recommendations.push("تقليل السعرات الحرارية اليومية مع الحفاظ على تناول البروتين الكافي");
+                    recommendations.push("ممارسة تمارين الكارديو متوسطة الشدة لمدة 150 دقيقة على الأقل أسبوعياً");
+                }
+                
+                // توصيات بناءً على نسبة الدهون
+                if (gender === 'male') {
+                    if (bodyFat < 8) {
+                        recommendations.push("زيادة تناول الدهون الصحية مثل الأفوكادو والمكسرات وزيت الزيتون");
+                    } else if (bodyFat > 19) {
+                        recommendations.push("دمج تمارين الكارديو وتمارين القوة لخسارة الدهون وبناء العضلات");
+                    }
+                } else {
+                    if (bodyFat < 21) {
+                        recommendations.push("زيادة تناول الدهون الصحية لدعم الوظائف الهرمونية الطبيعية");
+                    } else if (bodyFat > 32) {
+                        recommendations.push("التركيز على تمارين حرق الدهون مثل المشي السريع والسباحة وركوب الدراجات");
+                    }
+                }
+                
+                // توصيات عامة
+                recommendations.push("شرب 8-10 أكواب من الماء يومياً للحفاظ على ترطيب الجسم");
+                recommendations.push("النوم 7-9 ساعات يومياً لدعم عمليات الاستشفاء والتمثيل الغذائي");
+                
+                let recommendationsHTML = "";
+                recommendations.forEach(rec => {
+                    recommendationsHTML += `<li>${rec}</li>`;
+                });
+                
+                recommendationsList.innerHTML = recommendationsHTML;
+            }
+        });
+    </script>
+</body>
+</html>
